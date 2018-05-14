@@ -15,7 +15,7 @@
 		<div id="content">
 			<div id="user">
 				<p class="jr-success">
-					회원가입을 축하합니다.
+					회원가입/회원 수정을 축하합니다.
 					<br><br>
 					<a href="${pageContext.servletContext.contextPath }/user/login">로그인하기</a>
 				</p>				

@@ -19,67 +19,65 @@
 						<th>번호</th>
 						<th>타이틀</th>
 						<th>카테고리</th>
-						<th>&nbsp;</th>
+						<th>대여일</th>
+						<th>반납일</th>
+						<th>빌린사람</th>
 					</tr>
+					
+				<c:forEach items="${rentPage.content }" var="rent" varStatus="status">
 					<tr>
-						<td>5</td>
-						<td>세상의 중심에서 사랑을 외친 짐승</td>
-						<td>도서(소설)</td>
-						<td>
-							<a href="${pageContext.servletContext.contextPath }/rent" class="btn">대여</a>
-							<a href="${pageContext.servletContext.contextPath }/rent" class="btn">예약</a>
-						</td>
+						<td>${status.count }</td>
+						<td>${rent.item.title }</td>
+						<td>${rent.item.category.title }</td>
+						<td>${rent.rentDate }</td>
+						<td>${rent.returnDate}</td>
+						<td>${rent.user.name }</td>
 					</tr>
-					<tr>
-						<td>4</td>
-						<td>AC/DC: Fly On The Wall</td>
-						<td>음반(락)</td>
-						<td>
-							<a href="${pageContext.servletContext.contextPath }/rent" class="btn">대여</a>
-							<a href="${pageContext.servletContext.contextPath }/rent" class="btn">예약</a>
-						</td>
-					</tr>						
-					<tr>
-						<td>3</td>
-						<td>Java의 정석 [3판]</td>
-						<td>도서(IT)</td>
-						<td>
-							<a href="${pageContext.servletContext.contextPath }/rent" class="btn">대여</a>
-							<a href="${pageContext.servletContext.contextPath }/rent" class="btn">예약</a>
-						</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>파리로 가는 길</td>
-						<td>DVD(영화-드라마)</td>
-						<td>
-							<a href="${pageContext.servletContext.contextPath }/rent" class="btn">대여</a>
-							<a href="${pageContext.servletContext.contextPath }/rent" class="btn">예약</a>
-						</td>
-					</tr>				
-					<tr>
-						<td>1</td>
-						<td>브루크너: 교향곡 7번</td>
-						<td>음반(클래식)</td>
-						<td>
-							<a href="${pageContext.servletContext.contextPath }/rent" class="btn">대여</a>
-							<a href="${pageContext.servletContext.contextPath }/rent" class="btn">예약</a>
-						</td>
-					</tr>				
+				</c:forEach>	
 				</table>
 				<div class="pager">
+					
 					<ul>
-						<li><a href="${pageContext.servletContext.contextPath }/rent">◀</a></li>
-						<li><a href="${pageContext.servletContext.contextPath }/rent">6</a></li>
-						<li><a href="${pageContext.servletContext.contextPath }/rent">7</a></li>
-						<li class="selected">8</li>
-						<li>9</li>
-						<li>10</li>
-						<li>▶</li>
+						<c:choose>
+							<c:when test="${pager.prev }">
+								<li style="color: black;"><a
+									href="${ctx}/admin/rent?page=${(pager.blockPage-1) * pager.pageSize}&kwd=${kwd}">◀</a></li>
+							</c:when>
+							<c:otherwise>
+								<li style="color: #EAEAEA;">◀</li>
+							</c:otherwise>
+						</c:choose>
+
+						<c:forEach begin="${pager.pageStart }" end="${pager.pageStart + pager.pageSize - 1 }" var="page">  
+							<c:choose>
+								<c:when test="${pager.pageEnd < page }">
+									<li style="color: #EAEAEA;" >${page }</li>
+								</c:when>
+								<c:when test="${pager.page eq page }">
+									<li class="selected">${page }</li>
+								</c:when>
+								<c:otherwise>
+									<li><a href="${ctx }/admin/rent?page=${page-1 }&kwd=${kwd}">${page }</a></li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+
+						<c:choose>
+							<c:when test="${pager.next }">
+								<li style="color: black;"><a
+									href="${ctx}/admin/rent?page=${pager.blockPage * pager.pageSize + 1  }&kwd=${kwd}">▶</a></li>
+							</c:when>
+							<c:otherwise>
+								<li style="color: #EAEAEA;">▶</li>
+							</c:otherwise>
+						</c:choose>
 					</ul>
-				</div>
+					
+				</div>	
 			</div>
-			<c:import url="/WEB-INF/views/admin/include/navigation.jsp" />
+			<c:import url="/WEB-INF/views/admin/include/navigation.jsp" >
+				<c:param name="menu" value="rent" />
+			</c:import>
 		</div>
 	</div>
 </body>

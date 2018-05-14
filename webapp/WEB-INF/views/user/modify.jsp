@@ -2,12 +2,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<c:set var="ctx" value="${pageContext.servletContext.contextPath}" />
 <!doctype html>
 <html>
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link href="${pageContext.servletContext.contextPath }/assets/css/user.css" rel="stylesheet" type="text/css">
+<link href="${ctx }/assets/css/user.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<div id="container">
@@ -15,7 +16,7 @@
 		<div id="content">
 			<div id="user">
 
-				<form id="join-form" name="joinForm" method="post" action="${pageContext.servletContext.contextPath }/user/modify">
+				<form id="join-form" name="joinForm" method="POST" action="${ctx}/user/modify">
 					<label class="block-label" for="name">이름</label>
 					<input id="name" name="name" type="text" value="${user.name }">
 
@@ -28,12 +29,12 @@
 					<fieldset>
 						<legend>성별</legend>
 						<c:choose>
-							<c:when test='${user.gender == "male" }'>
-								<label>여</label> <input type="radio" name="gender" value="female">
+							<c:when test='${user.gender eq "male" }'>
+								<label>여</label> <input type="radio" name="gender" value="Female">
 								<label>남</label> <input type="radio" name="gender" value="male" checked="checked">
 							</c:when>
 							<c:otherwise>
-								<label>여</label> <input type="radio" name="gender" value="female" checked="checked">
+								<label>여</label> <input type="radio" name="gender" value="Female" checked="checked">
 								<label>남</label> <input type="radio" name="gender" value="male">
 							</c:otherwise>
 						</c:choose>
